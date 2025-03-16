@@ -11,7 +11,6 @@ RUN apt-get update && apt-get install -y \
 # Habilita o mod_rewrite do Apache para suportar Laravel
 RUN a2enmod rewrite
 
-# Define o diretório de trabalho
 WORKDIR /var/www/html
 
 # Copia os arquivos do projeto para o container
@@ -23,5 +22,4 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Expõe a porta 80
 EXPOSE 80
 
-# Comando para iniciar o Apache
 CMD ["apache2-foreground"]
