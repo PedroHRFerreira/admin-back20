@@ -38,7 +38,6 @@ class expensesController extends Controller
 
             $expenses = $filteredExpense;
         }
-
         $data = [
             'expenses' => [
                 'month' => $expenses
