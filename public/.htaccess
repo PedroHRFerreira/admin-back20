@@ -1,4 +1,8 @@
 <IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_HOST} ^$
+    RewriteRule ^ - [L]
+    
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
