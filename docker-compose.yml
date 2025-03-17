@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
     app:
-        build: .
+        image: php:8.2-fpm
         container_name: laravel_app
         restart: always
         ports:
@@ -16,8 +16,12 @@ services:
             - DB_DATABASE=railway
             - DB_USERNAME=root
             - DB_PASSWORD=luNEDoWehhDwTHweOOOIndsfwcXXPtHQ
+        volumes:
+            - .:/var/www/html
         depends_on:
             - db
+        networks:
+            - my_network
 
     db:
         image: mysql:8
@@ -28,3 +32,9 @@ services:
             - MYSQL_ROOT_PASSWORD=luNEDoWehhDwTHweOOOIndsfwcXXPtHQ
         ports:
             - "3307:3306"
+        networks:
+            - my_network
+
+networks:
+    my_network:
+        driver: bridge

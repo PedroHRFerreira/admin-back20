@@ -42,20 +42,20 @@ return [
             'synchronous' => null,
         ],
 
-       'mysql' => [
-        'driver' => 'mysql', 
-        'url' => env('MYSQL_URL'),   
-        'host' => parse_url(env('MYSQL_URL'), PHP_URL_HOST),    
-        'port' => parse_url(env('MYSQL_URL'), PHP_URL_PORT),    
-        'database' => ltrim(parse_url(env('MYSQL_URL'), PHP_URL_PATH), '/'),   
-        'username' => parse_url(env('MYSQL_URL'), PHP_URL_USER),    
-        'password' => parse_url(env('MYSQL_URL'), PHP_URL_PASS),  
-        'unix_socket' => env('DB_SOCKET', ''),   
-        'charset' => 'utf8mb4',
-        'collation' => 'utf8mb4_unicode_ci',   
-        'strict' => true,
-        'engine' => null,
+'mysql' => [
+    'driver' => 'mysql',
+    'host' => env('DB_HOST', '127.0.0.1'),
+    'port' => env('DB_PORT', '3306'),
+    'database' => env('DB_DATABASE', 'laravel'),
+    'username' => env('DB_USERNAME', 'root'),
+    'password' => env('DB_PASSWORD', ''),
+    'unix_socket' => env('DB_SOCKET', ''),
+    'charset' => 'utf8mb4',
+    'collation' => 'utf8mb4_unicode_ci',
+    'strict' => true,
+    'engine' => null,
 ],
+
 
         'mariadb' => [
             'driver' => 'mariadb',
