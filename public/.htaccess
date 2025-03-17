@@ -1,31 +1,46 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    
+    # Redireciona requisições vazias de HTTP_HOST para evitar problemas com URLs erradas
     RewriteCond %{HTTP_HOST} ^$
     RewriteRule ^ - [L]
+
+    # Desativa MultiViews e Indexes
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
+
+    # Permite que o Apache passe a variável HTTP_AUTHORIZATION
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Permite que o Apache passe a variável X_XSRF_TOKEN
     RewriteCond %{HTTP:x-xsrf-token} .
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+    
+    # Remove barra final da URL se não for um diretório
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
+
+    # Redireciona todas as requisições para index.php, exceto para arquivos e diretórios existentes
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
 
 <IfModule mod_autoindex.c>
+    # Desativa a listagem de diretórios
     Options -Indexes
 </IfModule>
 
 <IfModule mod_headers.c>
+    # Definindo header de segurança para evitar sniffing de tipo de conteúdo
     Header set X-Content-Type-Options "nosniff"
 </IfModule>
 
 <IfModule mod_rewrite.c>
+    # Redireciona para HTTPS caso não esteja em HTTPS
     RewriteCond %{HTTPS} off
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
