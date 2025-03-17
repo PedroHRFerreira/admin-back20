@@ -16,6 +16,7 @@
 
     # Permite que o Apache passe a variável X_XSRF_TOKEN
     RewriteCond %{HTTP:x-xsrf-token} .
+    
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
     
     # Remove barra final da URL se não for um diretório
